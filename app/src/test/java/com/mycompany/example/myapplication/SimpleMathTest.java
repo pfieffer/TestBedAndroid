@@ -4,49 +4,37 @@ import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 public class SimpleMathTest {
-    private SimpleMath simpleMath;
+    SimpleMath sm;
 
+    @Rule
+    public ReportTestExecution exec = new ReportTestExecution();
 
     @Before
-    public void setUp(){
-        simpleMath = new SimpleMath();
-        System.out.println("Ready for testing");
+    public void setup() {
+        sm = new SimpleMath();
+        // sysout to simulate call to Web service
+        //System.out.println("Sending to Web service:  about to execute test method in SimpleMathTest.");
     }
 
     @After
-    public void tearDown(){
-        System.out.println("Done with testing");
+    public void tearDown() {
+        // sysout to simulate call to Web service
+        //System.out.println("Sending to Web service:  done executing test method in SimpleMathTest.");
     }
 
     @Test
     public void testAdd() {
-        int total = simpleMath.add(4, 5);
-        assertEquals("Simple Math is not adding correctly", 9, total);
-        //The message here is displayed iff the test fails
+        assertEquals("SimpleMath addition not adding correctly", 9, sm.add(4, 5));
     }
 
     @Test
     public void testDiff() {
-        int total = simpleMath.diff(9, 2);
-        assertEquals("Simple Math is not subtracting correctly", 7, total);
+        assertEquals("SimpleMath diff not subtracting correctly", 5, sm.diff(12, 7));
     }
-
-    @Test
-    public void testDiv(){
-        double quotient = simpleMath.div(9,3);
-        assertEquals("Simple math is not dividing correctly", 3.0, quotient, 0.0);
-    }
-
-    //@Ignore //This ignores the test below
-    @Test
-    public void testDivWithZeroDivisor(){
-        double quotient = simpleMath.div(9,0);
-        assertEquals("Simple math is not handling division by zer0 correctly", 0.0, quotient, 0.0);
-    }
-
 }
 
 
