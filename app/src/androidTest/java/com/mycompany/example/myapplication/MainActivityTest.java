@@ -1,33 +1,41 @@
 package com.mycompany.example.myapplication;
 
-import android.test.ActivityInstrumentationTestCase2;
+import android.support.test.rule.ActivityTestRule;
+import android.support.test.runner.AndroidJUnit4;
+import android.widget.Button;
 
-import com.robotium.solo.Solo;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActivity> {
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-    private Solo solo;
+@RunWith(AndroidJUnit4.class)
+public class MainActivityTest {
 
-    public MainActivityTest() {
-        super(MainActivity.class);
+    @Rule
+    public ActivityTestRule<MainActivity> mActivityRule =
+            new ActivityTestRule(MainActivity.class);
+
+
+    @Test
+    public void testAdd() {
+        Button addButton = mock(Button.class);
+        when(addButton.getId()).thenReturn(R.id.buttonAdd);
+
+        MainActivity activity = mActivityRule.getActivity();
+        activity.buttonClicked(addButton);
+        // assert conditions after add button is pushed
     }
 
-    public void setUp() {
-        solo = new Solo(getInstrumentation(), getActivity());
-    }
+    @Test
+    public void testRemove() {
+        Button removeButton = mock(Button.class);
+        when(removeButton.getId()).thenReturn(R.id.buttonRemove);
 
-    public void tearDown() {
-        solo.finishOpenedActivities();
+        MainActivity activity = mActivityRule.getActivity();
+        activity.buttonClicked(removeButton);
+        // assert conditions after add button is pushed
     }
-
-    public void testPushClickMe() {
-        solo.waitForActivity(MainActivity.class);
-        solo.assertCurrentActivity("MainActivity is not displayed", MainActivity.class);
-        assertTrue("This is a test in EditText is not displayed",
-                solo.searchText("this is a test"));
-        solo.clickOnButton("Click Me");
-        assertTrue("You clicked me text is not displayed in the EditText",
-                solo.searchText("you clicked me!"));
-    }
-
 }
