@@ -2,25 +2,26 @@ package com.mycompany.example.myapplication;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText editText;
-    Button button;
+    ListView teamList;
+    TeamCursorAdapter teamAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        editText = (EditText) findViewById(R.id.editText);
-        button = (Button) findViewById(R.id.button);
+        teamList = (ListView) findViewById(R.id.teamList);
+        updateList();
     }
 
-    public void clickMe(View view){
-        editText.setText("you clicked me!");
+    private void updateList() {
+        teamAdapter = new TeamCursorAdapter(this, TeamDatabase.getInstance().getCursor(), 0);
+        if (teamAdapter != null) {
+            teamList.setAdapter(teamAdapter);
+        }
     }
+
 }

@@ -1,33 +1,27 @@
 package com.mycompany.example.myapplication;
 
-import android.test.ActivityInstrumentationTestCase2;
+import android.support.test.espresso.Espresso;
 
-import com.robotium.solo.Solo;
+import org.junit.Rule;
+import org.junit.Test;
 
-public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActivity> {
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
-    private Solo solo;
+public class MainActivityTest {
 
-    public MainActivityTest() {
-        super(MainActivity.class);
+
+    @Rule
+    public MainActivityTestRule<MainActivity> mActivityRule =
+            new MainActivityTestRule(MainActivity.class);
+
+    @Test
+    public void testInitialDisplay(){
+        Espresso.onView(withText("Cubs")).check(matches(isDisplayed()));
+        Espresso.onView(withText("Cards")).check(matches(isDisplayed()));
+        Espresso.onView(withText("Pirates")).check(matches(isDisplayed()));
+        Espresso.onView(withText("Reds")).check(matches(isDisplayed()));
+        Espresso.onView(withText("Brewers")).check(matches(isDisplayed()));
     }
-
-    public void setUp() {
-        solo = new Solo(getInstrumentation(), getActivity());
-    }
-
-    public void tearDown() {
-        solo.finishOpenedActivities();
-    }
-
-    public void testPushClickMe() {
-        solo.waitForActivity(MainActivity.class);
-        solo.assertCurrentActivity("MainActivity is not displayed", MainActivity.class);
-        assertTrue("This is a test in EditText is not displayed",
-                solo.searchText("this is a test"));
-        solo.clickOnButton("Click Me");
-        assertTrue("You clicked me text is not displayed in the EditText",
-                solo.searchText("you clicked me!"));
-    }
-
 }
