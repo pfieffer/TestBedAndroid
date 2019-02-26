@@ -17,8 +17,4 @@
 >Branch with 04_XX are related to Testing Tools.
 >Branch with 05_XX are related to Mocking.
 
-Have a look at [this](https://developer.android.com/studio/test/) for differences between the two. Basically Local tests run on your computer's local JVM while the Instrumented tests require an android device to run. Thus Local tests are faster than Instrumented tests.
-
-### Index
-
-[]()
+Have a look at [this](https://developer.android.com/studio/test/) for differences between the two. Basically Local tests run on your computer's local JVM while the Instrumented tests require an android device to run. Thus Local tests are faster than Instrumented tests. 
